@@ -22,7 +22,7 @@ public class HyperlinkTests
         var part = docPackage.AddMainDocumentPart();
         part.Document = new Document { Body = new Body() };
 
-        var run = new Run(new Text { Space = SpaceProcessingModeValues.Preserve })
+        var run = new Run(new Text("Hyperlink") { Space = SpaceProcessingModeValues.Preserve })
         {
             RunProperties = new RunProperties(
                 new RunStyle { Val = "Hyperlink" },
