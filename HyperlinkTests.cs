@@ -36,6 +36,8 @@ public class HyperlinkTests
         };
         part.Document.Body.AddChild(new Paragraph(hyperlink));
 
+        docPackage.Save();
+
         var i = 1;
         foreach (var h in part.Document.Descendants<Hyperlink>())
         {
