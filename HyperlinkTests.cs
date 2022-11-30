@@ -23,6 +23,8 @@ public class HyperlinkTests
         var documentPart = docPackage.AddMainDocumentPart();
         documentPart.Document = new Document {Body = new Body()};
 
+        documentPart.Document.Body.Append(new SectionProperties());
+
         var numberPart = documentPart.AddNewPart<NumberingDefinitionsPart>();
         numberPart.Numbering = new Numbering();
         numberPart.Numbering.Save(documentPart.NumberingDefinitionsPart!);
@@ -63,6 +65,7 @@ public class HyperlinkTests
         itemParagraph.Append(hyperlink);
 
         documentPart.Document.Body.AppendChild(itemParagraph);
+        MoveSectionProperties(docPackage);
         SaveNumbering(docPackage);
         docPackage.Save();
 
@@ -358,5 +361,13 @@ public class HyperlinkTests
 
         foreach (var numberingInstance in listNumberingInstance)
             numbering.Append(numberingInstance);
+    }
+
+    private void MoveSectionProperties(WordprocessingDocument docPackage)
+    {
+        var body = docPackage.MainDocumentPart!.Document.Body!;
+        var sectionProperties = body.Elements<SectionProperties>().Last();
+        body.RemoveChild(sectionProperties);
+        body.Append(sectionProperties);
     }
 }
