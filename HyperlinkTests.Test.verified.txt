@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:body>
+    <w:p>
+      <w:hyperlink w:history="true" r:id="00000001" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+        <w:r>
+          <w:rPr>
+            <w:rStyle w:val="Hyperlink" />
+            <w:u w:val="single" />
+            <w:color w:themeColor="hyperlink" />
+          </w:rPr>
+          <w:t xml:space="preserve" />
+        </w:r>
+      </w:hyperlink>
+    </w:p>
+  </w:body>
+</w:document>
