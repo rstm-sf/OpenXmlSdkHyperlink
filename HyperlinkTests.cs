@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 using DocumentFormat.OpenXml;
@@ -62,6 +63,7 @@ public class HyperlinkTests
         itemParagraph.Append(hyperlink);
 
         documentPart.Document.Body.AppendChild(itemParagraph);
+        SaveNumbering(docPackage);
         docPackage.Save();
 
         var i = 1;
@@ -334,5 +336,27 @@ public class HyperlinkTests
         abstractNum1.Append(level8);
         abstractNum1.Append(level9);
         return abstractNum1;
+    }
+
+    private static void SaveNumbering(WordprocessingDocument docPackage)
+    {
+        var numbering = docPackage.MainDocumentPart!.NumberingDefinitionsPart!.Numbering;
+
+        // it seems the order of numbering instance/abstractnums in numbering matters...
+
+        var listAbstractNum = numbering.ChildElements.OfType<AbstractNum>().ToArray();
+        var listNumberingInstance = numbering.ChildElements.OfType<NumberingInstance>().ToArray();
+        var listNumberPictures = numbering.ChildElements.OfType<NumberingPictureBullet>().ToArray();
+
+        numbering.RemoveAllChildren();
+
+        foreach (var pictureBullet in listNumberPictures)
+            numbering.Append(pictureBullet);
+
+        foreach (var abstractNum in listAbstractNum)
+            numbering.Append(abstractNum);
+
+        foreach (var numberingInstance in listNumberingInstance)
+            numbering.Append(numberingInstance);
     }
 }
